@@ -1,34 +1,34 @@
 pipeline{
   agent any 
   tools {
-    maven "maven3.9.8"
+    maven "maven3.9.10"
   }  
   stages {
-    stage('clone from github'){
+    stage('Clone from Github'){
       steps{
         sh "echo 'cloning the latest application version' "
-        git branch: 'nov29', url: 'https://github.com/Lion-Technology-Solutions/liontech-liontech-library-web-app.git'
+        git branch: 'nov29', url: 'https://github.com/Daxhian/practice-web-app'
       }
     }
-    stage('3Test+Build'){
+    stage('3-Test+Build'){
       steps{
         sh "echo 'running JUnit-test-cases' "
         sh "echo 'testing must passed to create artifacts ' "
         sh "mvn clean package"
       }
     }
-    stage('4CodeQuality'){       
+    stage('4-CodeQuality'){       
       steps{
         sh "echo 'Perfoming CodeQualityAnalysis' "
         sh "mvn sonar:sonar"
       }
     }
-    stage('5uploadNexus'){
+    stage('5-UploadToNexus'){
       steps{
         sh "mvn deploy"
       }
     } 
-    stage('8deploy2prod'){
+    stage('6-Deploy2ToProd'){
       steps{
         deploy adapters: [tomcat9(alternativeDeploymentContext: '', credentialsId: 'TOMCAT-DEPLOYER', path: '', url: 'http://35.182.68.230:8009/')], contextPath: 'nov29', war: 'target/*war'
       }
