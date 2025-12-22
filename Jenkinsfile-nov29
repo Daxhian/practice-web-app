@@ -7,7 +7,7 @@ pipeline{
     stage('Clone from Github'){
       steps{
         sh "echo 'cloning the latest application version' "
-        git branch: 'nov29', url: 'https://github.com/Daxhian/practice-web-app'
+        git branch: 'nov29', url: 'https://github.com/Daxhian/practice-web-app.git'
       }
     }
     stage('3-Test+Build'){
@@ -28,7 +28,7 @@ pipeline{
         sh "mvn deploy"
       }
     } 
-    stage('6-Deploy2ToProd'){
+    stage('6-DeployToProd'){
       steps{
         deploy adapters: [tomcat9(alternativeDeploymentContext: '', credentialsId: 'TOMCAT-DEPLOYER', path: '', url: 'http://35.182.68.230:8009/')], contextPath: 'nov29', war: 'target/*war'
       }
