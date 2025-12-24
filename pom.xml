@@ -48,6 +48,11 @@
 					<warSourceDirectory>WebContent</warSourceDirectory>
 				</configuration>
 			</plugin>
+			<plugin>
+    <groupId>org.sonarsource.scanner.maven</groupId>
+    <artifactId>sonar-maven-plugin</artifactId>
+    <version></version>  <!-- Or leave blank to use latest -->
+</plugin>
 		</plugins>
 	</build>
 	<dependencies>
